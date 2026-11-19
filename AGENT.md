@@ -38,6 +38,11 @@ Security is a product requirement, not a finishing task.
 - Treat subscription requests as requests. Never represent a pending request as payment confirmation or an active paid plan.
 - Keep email-delivery status separate from feedback support/resolution status.
 - Administrative mutations must be authorized, validated, and recorded in an append-only platform audit trail on the server.
+- API monitoring schedules must execute outside the monitored RetailOS API and must not depend on an open admin browser.
+- Treat administrator-supplied monitor URLs as untrusted input. Prevent SSRF by blocking loopback, private, link-local, multicast, and other prohibited destinations; validate DNS and redirects; and enforce HTTPS, allowed ports/methods, timeouts, response limits, and concurrency limits.
+- Never return stored monitor credentials or secret headers to the browser or write them to logs.
+- Do not claim that periodic keep-alive requests guarantee production availability or remove hosting-provider restrictions.
+- Distinguish target-service failures from monitoring-scheduler/control-plane failures, and calculate uptime only from real retained check records.
 
 If a task conflicts with these rules, stop and explain the conflict before implementing it.
 
